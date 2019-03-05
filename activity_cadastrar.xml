@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/formulario_datacadastro"
+        android:hint="Data cadastro"
+        android:inputType="date" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/formulario_nome"
+        android:hint="nome" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/formulario_qtdecompra"
+        android:inputType="number"
+        android:hint="quantidade compra" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/formulario_precocompra"
+        android:inputType="number"
+        android:hint="Preço da compra" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/formulario_precototal"
+        android:hint="Preço Total" />
+
+    <Button
+        android:id="@+id/bt_calculo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btCalculo"
+        />
+
+    <Button
+        android:id="@+id/bt_salvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btSalvar"
+        />
+
+</LinearLayout>
