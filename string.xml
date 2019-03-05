@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Estoque de Produtos do sitio</string>
+    <string name="titulo">Controle de compras</string>
+    <string name="btcadastro">Cadastrar as compras</string>
+    <string name="btopcoes">lista e opções de produtos</string>
+    <string name="btCalculo">Calcular Compras</string>
+    <string name="btSalvar">Cadastrar</string>
+    <string name="btAlterar">Alterar Produto</string>
+</resources>
