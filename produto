@@ -1,0 +1,78 @@
+package cadprodutos.cursoandroid.com.estoquedeprodutosdositio.entity;
+
+import java.io.Serializable;
+
+public class Produto implements Serializable {
+
+    private String id;
+    private String datacadastro;
+    private String nome;
+    private Integer qtdecompra;
+    private Double precocompra;
+    private Double precototal;
+
+    public Produto() {
+    }
+
+    public Produto(String id, String datacadastro, String nome, Integer qtdecompra, Double precocompra, Double precototal) {
+        this.id = id;
+        this.datacadastro = datacadastro;
+        this.nome = nome;
+        this.qtdecompra = qtdecompra;
+        this.precocompra = precocompra;
+        this.precototal = precototal;
+    }
+
+    @Override
+    public String toString() {
+        return "id= " + id + ", datacadastro='" + datacadastro +  ", nome='" + nome + ", qtdecompra=" + qtdecompra + ", precocompra=" + precocompra + ", precototal=" + precototal;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDatacadastro() {
+        return datacadastro;
+    }
+
+    public void setDatacadastro(String datacadastro) {
+        this.datacadastro = datacadastro;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Integer getQtdecompra() {
+        return qtdecompra;
+    }
+
+    public void setQtdecompra(Integer qtdecompra) {
+        this.qtdecompra = qtdecompra;
+    }
+
+    public Double getPrecocompra() {
+        return precocompra;
+    }
+
+    public void setPrecocompra(Double precocompra) {
+        this.precocompra = precocompra;
+    }
+
+    public Double getPrecototal() {
+        return precototal;
+    }
+
+    public void setPrecototal(Double precototal) {
+        this.precototal = precototal;
+    }
+}
