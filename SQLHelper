@@ -1,0 +1,35 @@
+package cadprodutos.cursoandroid.com.estoquedeprodutosdositio.dao;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class SQLHelper extends SQLiteOpenHelper {
+
+    private static SQLHelper instance;
+    private static final String NOME_BANCO = "cruddb";
+    private static final int VERSION = 1;
+
+    public SQLHelper(Context context) {
+        super(context, NOME_BANCO, null, 1);
+    }
+
+    public  static  SQLHelper getInstance(Context ctx){
+        if(instance == null){
+            instance = new SQLHelper(ctx);
+        }
+
+        return  instance;
+    }
+
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+          db.execSQL(ProdutoDAO.CRIAR_TABELA);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+}
