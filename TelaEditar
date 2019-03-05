@@ -1,0 +1,85 @@
+package cadprodutos.cursoandroid.com.estoquedeprodutosdositio;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import cadprodutos.cursoandroid.com.estoquedeprodutosdositio.dao.ProdutoDAO;
+import cadprodutos.cursoandroid.com.estoquedeprodutosdositio.entity.Produto;
+
+public class TelaEditar extends AppCompatActivity {
+
+    private EditText campoDatacadastro, campoNome, campoQtdecompra, campoPreco, campoPrecoTotal;
+    private Button btCalculo, btAlterar;
+    private Produto produto;
+    private ProdutoDAO produtoDAO;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tela_editar);
+
+        inicializarComponentes();
+
+
+        btCalculo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int qtdecompra = Integer.parseInt(campoQtdecompra.getText().toString());
+                double precocompra = Double.parseDouble(campoPreco.getText().toString());
+
+                double totalpreco = qtdecompra*precocompra;
+
+                campoPrecoTotal.setText(String.valueOf(totalpreco));
+
+            }
+        });
+
+
+        this.campoDatacadastro.setText(produto.getDatacadastro());
+        this.campoNome.setText(produto.getNome());
+        this.campoQtdecompra.setText(this.produto.getQtdecompra().toString());
+        this.campoPreco.setText(produto.getPrecocompra().toString());
+        this.campoPrecoTotal.setText(produto.getPrecototal().toString());
+
+
+        btAlterar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                produto.setDatacadastro(campoDatacadastro.getText().toString());
+                produto.setNome(campoNome.getText().toString());
+                produto.setQtdecompra(Integer.parseInt(campoQtdecompra.getText().toString()));
+                produto.setPrecocompra(Double.parseDouble(campoPreco.getText().toString()));
+                produto.setPrecototal(Double.parseDouble(campoPrecoTotal.getText().toString()));
+
+                boolean editou = produtoDAO.editar(produto);
+                if(editou){
+                    Toast.makeText(TelaEditar.this, "Produto Alterado com sucesso!" + produto.getNome(), Toast.LENGTH_LONG).show();
+                    finish();
+                }else{
+                    Toast.makeText(TelaEditar.this, "Produto não Alterado!" + produto.getNome(), Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
+            }
+        });
+    }
+
+    public void inicializarComponentes(){
+        this.campoDatacadastro = (EditText) findViewById(R.id.formulario_datacadastro);
+        this.campoNome = (EditText) findViewById(R.id.formulario_nome);
+        this.campoQtdecompra = (EditText) findViewById(R.id.formulario_qtdecompra);
+        this.campoPreco = (EditText) findViewById(R.id.formulario_precocompra);
+        this.campoPrecoTotal = (EditText) findViewById(R.id.formulario_precototal);
+        this.btCalculo = (Button) findViewById(R.id.bt_calculo);
+        this.btAlterar = (Button) findViewById(R.id.bt_alterar);
+        this.produtoDAO = new ProdutoDAO(this);
+        this.produto = (Produto) getIntent().getExtras().getSerializable("produto");
+    }
+
+}
