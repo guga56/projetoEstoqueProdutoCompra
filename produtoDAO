@@ -1,0 +1,106 @@
+package cadprodutos.cursoandroid.com.estoquedeprodutosdositio.dao;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+
+import cadprodutos.cursoandroid.com.estoquedeprodutosdositio.entity.Produto;
+
+public class ProdutoDAO {
+
+    private SQLiteDatabase db;
+
+    public static  final  String NOME_TABELA = "produto";
+    public static  final  String COLUNA_ID = "id";
+    public static  final  String COLUNA_DATACADASTRO = "datacadastro";
+    public static  final  String COLUNA_NOME = "nome";
+    public static  final  String COLUNA_QTDECOMPRA = "qtdecompra";
+    public static  final  String COLUNA_PRECOCOOMPA = "precocompra";
+    public static  final  String COLUNA_PRECOTOTAL = "precototal";
+    public static  final  String CRIAR_TABELA = "CREATE TABLE "+NOME_TABELA+"("+COLUNA_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, "+COLUNA_DATACADASTRO+" TEXT NOT NULL, "+COLUNA_NOME+" TEXT NOT NULL, "+COLUNA_QTDECOMPRA+" TEXT NOT NULL, "+COLUNA_PRECOCOOMPA+" TEXT NOT NULL, "+COLUNA_PRECOTOTAL+" TEXT NOT NULL);";
+
+
+    public ProdutoDAO(Context cxt){
+        db = SQLHelper.getInstance(cxt).getWritableDatabase();
+    }
+
+    public boolean salvar(Produto produto){
+        long i = db.insert(NOME_TABELA, null, produtoContentValues(produto));
+
+        return true;
+    }
+
+    public boolean deletar(Produto produto){
+        String where = COLUNA_ID+" =?";
+
+        String[] whereArgs = {
+                produto.getId().toString()
+        };
+
+        long i = db.delete(NOME_TABELA, where, whereArgs);
+
+        return  true;
+    }
+
+    public boolean editar(Produto produto){
+        String where = COLUNA_ID+" =?";
+
+        String[] whereArgs = {
+                produto.getId().toString()
+        };
+
+        long i = db.update(NOME_TABELA, produtoContentValues(produto), where, whereArgs);
+
+        return  true;
+    }
+
+    public ArrayList<Produto> listar(){
+        ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+        String sqlBusca = "select * from " + NOME_TABELA;
+        Cursor cursor = db.rawQuery(sqlBusca, null);
+
+        Produto produto;
+
+        int indiceId = cursor.getColumnIndex(COLUNA_ID);
+        int indiceDatacadastro = cursor.getColumnIndex(COLUNA_DATACADASTRO);
+        int indiceNome = cursor.getColumnIndex(COLUNA_NOME);
+        int indiceQtdecompra = cursor.getColumnIndex(COLUNA_QTDECOMPRA);
+        int indicePrecocompra = cursor.getColumnIndex(COLUNA_PRECOCOOMPA);
+        int indicePrecototal = cursor.getColumnIndex(COLUNA_PRECOTOTAL);
+
+        while (cursor.moveToNext()){
+            produto = new Produto();
+
+            produto.setId(cursor.getString(indiceId));
+            produto.setDatacadastro(cursor.getString(indiceDatacadastro));
+            produto.setNome(cursor.getString(indiceNome));
+            produto.setQtdecompra(cursor.getInt(indiceQtdecompra));
+            produto.setPrecocompra(cursor.getDouble(indicePrecocompra));
+            produto.setPrecototal(cursor.getDouble(indicePrecototal));
+
+            listaProdutos.add(produto);
+        }
+
+        return listaProdutos;
+    }
+
+
+
+
+    public ContentValues produtoContentValues(Produto produto){
+        ContentValues cv = new ContentValues();
+        cv.put(COLUNA_ID, produto.getId());
+        cv.put(COLUNA_DATACADASTRO, produto.getDatacadastro());
+        cv.put(COLUNA_NOME, produto.getNome());
+        cv.put(COLUNA_QTDECOMPRA, produto.getQtdecompra());
+        cv.put(COLUNA_PRECOCOOMPA, produto.getPrecocompra());
+        cv.put(COLUNA_PRECOTOTAL, produto.getPrecototal());
+
+
+        return cv;
+    }
+
+}
